@@ -30,7 +30,20 @@ namespace TestPowerpointApp
 
         private void frmTestPowerPoint_Load(object sender, EventArgs e)
         {
+            int sCounter=0;
+            foreach (Screen x  in Screen.AllScreens)
+            {
+                sCounter+=1;
+                txtScreens.Text += "(" + sCounter + ")" + x.DeviceName + Environment.NewLine;
+                
+                if (x.Primary == true)
+                { txtScreens.Text += "\t" + " ISPRIMARY " + Environment.NewLine; }
+                
+                txtScreens.Text += "\t" + x.WorkingArea.ToString() + Environment.NewLine;
+                txtScreens.Text += "\t" + x.Bounds.ToString() + Environment.NewLine;
 
+                txtScreens.Text += Environment.NewLine + Environment.NewLine;
+            }
         }
 
         private void btnCheckIsRunning_Click(object sender, EventArgs e)
@@ -182,6 +195,7 @@ namespace TestPowerpointApp
                     {
                         // Get selected slide object in normal view 
                         slide = presentation.Slides.FindBySlideID(slides[1].SlideID);
+
                         presentation.SlideShowSettings.Run();
                     }
                     catch

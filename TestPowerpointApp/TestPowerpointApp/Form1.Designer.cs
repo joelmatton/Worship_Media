@@ -34,6 +34,7 @@
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnOpenPptDoc = new System.Windows.Forms.Button();
+            this.txtScreens = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCheckIsRunning
@@ -96,11 +97,20 @@
             this.btnOpenPptDoc.UseVisualStyleBackColor = true;
             this.btnOpenPptDoc.Click += new System.EventHandler(this.btnOpenPptDoc_Click);
             // 
+            // txtScreens
+            // 
+            this.txtScreens.Location = new System.Drawing.Point(12, 142);
+            this.txtScreens.Multiline = true;
+            this.txtScreens.Name = "txtScreens";
+            this.txtScreens.Size = new System.Drawing.Size(390, 303);
+            this.txtScreens.TabIndex = 6;
+            // 
             // frmTestPowerPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 143);
+            this.ClientSize = new System.Drawing.Size(587, 468);
+            this.Controls.Add(this.txtScreens);
             this.Controls.Add(this.btnOpenPptDoc);
             this.Controls.Add(this.btnLast);
             this.Controls.Add(this.btnPrevious);
@@ -111,6 +121,7 @@
             this.Text = "PowerPointTester";
             this.Load += new System.EventHandler(this.frmTestPowerPoint_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -122,6 +133,7 @@
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.Button btnOpenPptDoc;
+        private System.Windows.Forms.TextBox txtScreens;
     }
 }
 
