@@ -13,6 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -35,6 +36,9 @@
             this.btnLast = new System.Windows.Forms.Button();
             this.btnOpenPptDoc = new System.Windows.Forms.Button();
             this.txtScreens = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClosePPT = new System.Windows.Forms.Button();
+            this.lstSlides = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // btnCheckIsRunning
@@ -102,14 +106,44 @@
             this.txtScreens.Location = new System.Drawing.Point(12, 142);
             this.txtScreens.Multiline = true;
             this.txtScreens.Name = "txtScreens";
-            this.txtScreens.Size = new System.Drawing.Size(390, 303);
+            this.txtScreens.Size = new System.Drawing.Size(390, 146);
             this.txtScreens.TabIndex = 6;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(635, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(843, 825);
+            this.panel1.TabIndex = 7;
+            // 
+            // btnClosePPT
+            // 
+            this.btnClosePPT.Location = new System.Drawing.Point(359, 54);
+            this.btnClosePPT.Name = "btnClosePPT";
+            this.btnClosePPT.Size = new System.Drawing.Size(75, 23);
+            this.btnClosePPT.TabIndex = 8;
+            this.btnClosePPT.Text = "Close Ppt";
+            this.btnClosePPT.UseVisualStyleBackColor = true;
+            this.btnClosePPT.Click += new System.EventHandler(this.btnClosePPT_Click);
+            // 
+            // lstSlides
+            // 
+            this.lstSlides.Location = new System.Drawing.Point(22, 308);
+            this.lstSlides.Name = "lstSlides";
+            this.lstSlides.Size = new System.Drawing.Size(330, 330);
+            this.lstSlides.TabIndex = 9;
+            this.lstSlides.UseCompatibleStateImageBehavior = false;
             // 
             // frmTestPowerPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 468);
+            this.ClientSize = new System.Drawing.Size(1478, 825);
+            this.Controls.Add(this.lstSlides);
+            this.Controls.Add(this.btnClosePPT);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtScreens);
             this.Controls.Add(this.btnOpenPptDoc);
             this.Controls.Add(this.btnLast);
@@ -119,6 +153,7 @@
             this.Controls.Add(this.btnCheckIsRunning);
             this.Name = "frmTestPowerPoint";
             this.Text = "PowerPointTester";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestPowerPoint_FormClosing);
             this.Load += new System.EventHandler(this.frmTestPowerPoint_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -134,6 +169,9 @@
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.Button btnOpenPptDoc;
         private System.Windows.Forms.TextBox txtScreens;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnClosePPT;
+        private System.Windows.Forms.ListView lstSlides;
     }
 }
 

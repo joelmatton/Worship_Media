@@ -10,24 +10,50 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using PPt = Microsoft.Office.Interop.PowerPoint;
 using Microsoft.Office.Core;
+using System.Diagnostics;
+using System.IO;
+
 
 namespace TestPowerpointApp
 {
+
+
+
     public partial class frmTestPowerPoint : Form
     {
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(IntPtr ZeroOnly, string lpWindowName);
+
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+
         PPt._Application pptApplication;
         PPt.Presentation presentation;
-        PPt.Presentation New_Presentation;
+
         PPt.Slides slides;
         int slidescount;
         PPt.Slide slide;
         int slideIndex;
+
+        System.Windows.Forms.ImageList SlideImages;
 
         public frmTestPowerPoint()
         {
             InitializeComponent();
         }
 
+        private void frmTestPowerPoint_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            foreach (PPt.Presentation x in pptApplication.Presentations)
+            {
+                try { x.Close(); }
+                catch (Exception ex) { };
+            }
+
+        }
         private void frmTestPowerPoint_Load(object sender, EventArgs e)
         {
             int sCounter=0;
@@ -168,6 +194,8 @@ namespace TestPowerpointApp
 
         private void btnOpenPptDoc_Click(object sender, EventArgs e)
         {
+            Microsoft.Office.Interop.PowerPoint.SlideShowView SSView;
+
             pptApplication = new PPt.Application();
             try
             {
@@ -185,7 +213,16 @@ namespace TestPowerpointApp
 
                     // Get Presentation Object 
                     presentation = pptApplication.Presentations.Open("C:\\CROSSWAY\\12step_leaf_tree.ppt", MsoTriState.msoTrue,MsoTriState.msoFalse, MsoTriState.msoFalse);
-
+                    SlideImages = GetSlideImages();
+                    SlideImages.ImageSize = new Size(128, 128);
+                    lstSlides.View = View.LargeIcon;
+                    lstSlides.LargeImageList = SlideImages;
+                    for (int j = 0; j < this.SlideImages.Images.Count; j++)
+                    {
+                        ListViewItem item = new ListViewItem();
+                        item.ImageIndex = j;
+                        this.lstSlides.Items.Add(item);
+                    }
                     // Get Slide collection object 
                     slides = presentation.Slides;
                     // Get Slide count 
@@ -195,13 +232,33 @@ namespace TestPowerpointApp
                     {
                         // Get selected slide object in normal view 
                         slide = presentation.Slides.FindBySlideID(slides[1].SlideID);
+                        IntPtr screenClassWnd = (IntPtr)0;
+                        IntPtr x = (IntPtr)0;
+                        panel1.Controls.Add(pptApplication as Control);
+                        PPt.SlideShowSettings sst1 = presentation.SlideShowSettings;
 
-                        presentation.SlideShowSettings.Run();
+                        sst1.StartingSlide = 1;
+                        sst1.EndingSlide = slides.Count;
+                        //panel1.Dock = DockStyle.Bottom;
+                        pptApplication.Height=panel1.Height;
+                        sst1.ShowType = PPt.PpSlideShowType.ppShowTypeWindow;
+                        sst1.Application.Width = panel1.Height;
+                        sst1.Application.Height = panel1.Width;
+                      //  sst1.ShowType = PPt.PpSlideShowType.ppShowTypeSpeaker;
+
+
+                        PPt.SlideShowWindow sw = sst1.Run();
+                        
+                        IntPtr pptptr = (IntPtr)sw.HWND;
+                        SetParent(pptptr, panel1.Handle);
+
+
                     }
                     catch
                     {
                         // Get selected slide object in reading view 
                         slide = pptApplication.SlideShowWindows[1].View.Slide;
+
                     }
                 }
 
@@ -212,6 +269,35 @@ namespace TestPowerpointApp
             } 
 
 
+        }
+
+        public System.Windows.Forms.ImageList GetSlideImages()
+        {
+            if (presentation == null)
+                return null;
+
+            var imageList = new System.Windows.Forms.ImageList();
+
+            foreach (PPt.Slide slide in presentation.Slides)
+            {
+                var fileName = Path.Combine(
+                    Path.GetTempPath(),
+                    string.Format("Slide{0:00}.jpg", slide.SlideNumber));
+
+                slide.Export(fileName, "JPG", 800, 600);
+
+                imageList.Images.Add(Image.FromFile(fileName));
+            }
+
+            return imageList;
+        }
+
+        private void btnClosePPT_Click(object sender, EventArgs e)
+        {
+            foreach (PPt.Presentation x in pptApplication.Presentations)
+            {
+                try { x.Close();}catch (Exception ex){};
+            }
         }
     }
 }
