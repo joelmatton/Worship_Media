@@ -7,4 +7,3 @@ C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPow
 C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPowerpointApp.csproj.GenerateResource.Cache
 C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPowerpointApp.exe
 C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPowerpointApp.pdb
-C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPowerpointApp.csprojResolveAssemblyReference.cache

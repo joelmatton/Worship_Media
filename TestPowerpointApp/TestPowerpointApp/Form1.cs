@@ -47,11 +47,16 @@ namespace TestPowerpointApp
 
         private void frmTestPowerPoint_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            foreach (PPt.Presentation x in pptApplication.Presentations)
+            if (pptApplication != null)
             {
-                try { x.Close(); }
-                catch (Exception ex) { };
+                foreach (PPt.Presentation x in pptApplication.Presentations)
+                {
+                    try { x.Close(); }
+                    catch (Exception ex) { };
+                }
+                pptApplication.Quit();
             }
+
 
         }
         private void frmTestPowerPoint_Load(object sender, EventArgs e)
@@ -82,7 +87,7 @@ namespace TestPowerpointApp
                 pptApplication = null;
                 // Get Running PowerPoint Application object 
                 pptApplication = Marshal.GetActiveObject("PowerPoint.Application") as PPt.Application;
-                
+
                 // Get PowerPoint application successfully, then set control button enable 
                 this.btnFirst.Enabled = true;
                 this.btnNext.Enabled = true;
@@ -194,14 +199,19 @@ namespace TestPowerpointApp
 
         private void btnOpenPptDoc_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.PowerPoint.SlideShowView SSView;
+       
 
-            pptApplication = new PPt.Application();
+
             try
             {
-                pptApplication = null;
+               // pptApplication = null;
                 // Get Running PowerPoint Application object 
-                pptApplication = Marshal.GetActiveObject("PowerPoint.Application") as PPt.Application;
+
+                Type powerpointType = Type.GetTypeFromProgID("PowerPoint.Application");
+                object instance1 = Activator.CreateInstance(powerpointType);
+                pptApplication = (PPt._Application)instance1;
+
+               // pptApplication = Marshal.GetActiveObject("PowerPoint.Application") as PPt.Application;
 
                 // Get PowerPoint application successfully, then set control button enable 
                 this.btnFirst.Enabled = true;
@@ -213,6 +223,8 @@ namespace TestPowerpointApp
 
                     // Get Presentation Object 
                     presentation = pptApplication.Presentations.Open("C:\\CROSSWAY\\12step_leaf_tree.ppt", MsoTriState.msoTrue,MsoTriState.msoFalse, MsoTriState.msoFalse);
+                    try { pptApplication.Visible = MsoTriState.msoFalse; }
+                    catch (Exception exx) { }
                     SlideImages = GetSlideImages();
                     SlideImages.ImageSize = new Size(128, 128);
                     lstSlides.View = View.LargeIcon;
@@ -244,14 +256,17 @@ namespace TestPowerpointApp
                         sst1.ShowType = PPt.PpSlideShowType.ppShowTypeWindow;
                         sst1.Application.Width = panel1.Height;
                         sst1.Application.Height = panel1.Width;
-                      //  sst1.ShowType = PPt.PpSlideShowType.ppShowTypeSpeaker;
 
-
+                        try { pptApplication.Visible = MsoTriState.msoFalse; }
+                        catch (Exception exx) { }
+                        sst1.ShowScrollbar = MsoTriState.msoFalse;
                         PPt.SlideShowWindow sw = sst1.Run();
-                        
+                        try { pptApplication.Visible = MsoTriState.msoFalse; }
+                        catch (Exception exx) { }
                         IntPtr pptptr = (IntPtr)sw.HWND;
                         SetParent(pptptr, panel1.Handle);
-
+                                        try {pptApplication.Visible = MsoTriState.msoFalse;} 
+                catch (Exception exx){}
 
                     }
                     catch
@@ -263,11 +278,15 @@ namespace TestPowerpointApp
                 }
 
             }
-            catch
+            catch ( Exception eMAin)
             {
-                MessageBox.Show("Please Run PowerPoint Firstly", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-            } 
+                MessageBox.Show(eMAin.Message);
+            }
 
+            this.BringToFront();
+            this.WindowState = FormWindowState.Maximized;
+            this.MinimumSize = this.Size;
+            this.MaximumSize = this.Size;
 
         }
 
@@ -294,10 +313,14 @@ namespace TestPowerpointApp
 
         private void btnClosePPT_Click(object sender, EventArgs e)
         {
-            foreach (PPt.Presentation x in pptApplication.Presentations)
-            {
-                try { x.Close();}catch (Exception ex){};
-            }
+
+
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
