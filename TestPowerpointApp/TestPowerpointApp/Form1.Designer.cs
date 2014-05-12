@@ -29,7 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCheckIsRunning = new System.Windows.Forms.Button();
             this.btnFirst = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrevious = new System.Windows.Forms.Button();
@@ -39,17 +38,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClosePPT = new System.Windows.Forms.Button();
             this.lstSlides = new System.Windows.Forms.ListView();
+            this.btnPPTDll = new System.Windows.Forms.Button();
+            this.btnNextPPTdll = new System.Windows.Forms.Button();
+            this.btnPrevPPTdll = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnCheckIsRunning
-            // 
-            this.btnCheckIsRunning.Location = new System.Drawing.Point(12, 12);
-            this.btnCheckIsRunning.Name = "btnCheckIsRunning";
-            this.btnCheckIsRunning.Size = new System.Drawing.Size(192, 23);
-            this.btnCheckIsRunning.TabIndex = 0;
-            this.btnCheckIsRunning.Text = "Check Powerpoint Is Running";
-            this.btnCheckIsRunning.UseVisualStyleBackColor = true;
-            this.btnCheckIsRunning.Click += new System.EventHandler(this.btnCheckIsRunning_Click);
             // 
             // btnFirst
             // 
@@ -63,7 +55,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(103, 54);
+            this.btnNext.Location = new System.Drawing.Point(12, 83);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 2;
@@ -73,7 +65,7 @@
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(197, 54);
+            this.btnPrevious.Location = new System.Drawing.Point(93, 84);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(75, 23);
             this.btnPrevious.TabIndex = 3;
@@ -83,7 +75,7 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(278, 54);
+            this.btnLast.Location = new System.Drawing.Point(93, 55);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(75, 23);
             this.btnLast.TabIndex = 4;
@@ -93,7 +85,7 @@
             // 
             // btnOpenPptDoc
             // 
-            this.btnOpenPptDoc.Location = new System.Drawing.Point(210, 12);
+            this.btnOpenPptDoc.Location = new System.Drawing.Point(12, 12);
             this.btnOpenPptDoc.Name = "btnOpenPptDoc";
             this.btnOpenPptDoc.Size = new System.Drawing.Size(192, 23);
             this.btnOpenPptDoc.TabIndex = 5;
@@ -103,7 +95,7 @@
             // 
             // txtScreens
             // 
-            this.txtScreens.Location = new System.Drawing.Point(12, 142);
+            this.txtScreens.Location = new System.Drawing.Point(12, 272);
             this.txtScreens.Multiline = true;
             this.txtScreens.Name = "txtScreens";
             this.txtScreens.Size = new System.Drawing.Size(390, 146);
@@ -121,7 +113,7 @@
             // 
             // btnClosePPT
             // 
-            this.btnClosePPT.Location = new System.Drawing.Point(359, 54);
+            this.btnClosePPT.Location = new System.Drawing.Point(12, 141);
             this.btnClosePPT.Name = "btnClosePPT";
             this.btnClosePPT.Size = new System.Drawing.Size(75, 23);
             this.btnClosePPT.TabIndex = 8;
@@ -131,17 +123,49 @@
             // 
             // lstSlides
             // 
-            this.lstSlides.Location = new System.Drawing.Point(22, 308);
+            this.lstSlides.Location = new System.Drawing.Point(12, 438);
             this.lstSlides.Name = "lstSlides";
             this.lstSlides.Size = new System.Drawing.Size(330, 330);
             this.lstSlides.TabIndex = 9;
             this.lstSlides.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnPPTDll
+            // 
+            this.btnPPTDll.Location = new System.Drawing.Point(361, 12);
+            this.btnPPTDll.Name = "btnPPTDll";
+            this.btnPPTDll.Size = new System.Drawing.Size(249, 23);
+            this.btnPPTDll.TabIndex = 10;
+            this.btnPPTDll.Text = "open a ppt from dll";
+            this.btnPPTDll.UseVisualStyleBackColor = true;
+            this.btnPPTDll.Click += new System.EventHandler(this.btnPPTDll_Click);
+            // 
+            // btnNextPPTdll
+            // 
+            this.btnNextPPTdll.Location = new System.Drawing.Point(361, 41);
+            this.btnNextPPTdll.Name = "btnNextPPTdll";
+            this.btnNextPPTdll.Size = new System.Drawing.Size(103, 23);
+            this.btnNextPPTdll.TabIndex = 11;
+            this.btnNextPPTdll.Text = "Select Next PPT";
+            this.btnNextPPTdll.UseVisualStyleBackColor = true;
+            this.btnNextPPTdll.Click += new System.EventHandler(this.btnNextPPTdll_Click);
+            // 
+            // btnPrevPPTdll
+            // 
+            this.btnPrevPPTdll.Location = new System.Drawing.Point(470, 41);
+            this.btnPrevPPTdll.Name = "btnPrevPPTdll";
+            this.btnPrevPPTdll.Size = new System.Drawing.Size(111, 23);
+            this.btnPrevPPTdll.TabIndex = 12;
+            this.btnPrevPPTdll.Text = "Select Next PPT";
+            this.btnPrevPPTdll.UseVisualStyleBackColor = true;
             // 
             // frmTestPowerPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1478, 825);
+            this.Controls.Add(this.btnPrevPPTdll);
+            this.Controls.Add(this.btnNextPPTdll);
+            this.Controls.Add(this.btnPPTDll);
             this.Controls.Add(this.lstSlides);
             this.Controls.Add(this.btnClosePPT);
             this.Controls.Add(this.panel1);
@@ -151,7 +175,6 @@
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnFirst);
-            this.Controls.Add(this.btnCheckIsRunning);
             this.Name = "frmTestPowerPoint";
             this.Text = "PowerPointTester";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestPowerPoint_FormClosing);
@@ -163,7 +186,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnCheckIsRunning;
         private System.Windows.Forms.Button btnFirst;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnPrevious;
@@ -173,6 +195,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnClosePPT;
         private System.Windows.Forms.ListView lstSlides;
+        private System.Windows.Forms.Button btnPPTDll;
+        private System.Windows.Forms.Button btnNextPPTdll;
+        private System.Windows.Forms.Button btnPrevPPTdll;
     }
 }
 

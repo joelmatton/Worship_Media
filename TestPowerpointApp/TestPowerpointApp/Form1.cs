@@ -12,7 +12,7 @@ using PPt = Microsoft.Office.Interop.PowerPoint;
 using Microsoft.Office.Core;
 using System.Diagnostics;
 using System.IO;
-
+using MediaManagers;
 
 namespace TestPowerpointApp
 {
@@ -52,24 +52,34 @@ namespace TestPowerpointApp
                 foreach (PPt.Presentation x in pptApplication.Presentations)
                 {
                     try { x.Close(); }
-                    catch (Exception ex) { };
+                    catch  { };
                 }
                 pptApplication.Quit();
             }
 
+            try
+            {
+                PPTMediaApplication.DisposeEverything();
+            }
+            catch  { }
+            try
+            {
+                PPTMediaApplication=null;
+            }
+            catch { }
 
         }
         private void frmTestPowerPoint_Load(object sender, EventArgs e)
         {
-            int sCounter=0;
-            foreach (Screen x  in Screen.AllScreens)
+            int sCounter = 0;
+            foreach (Screen x in Screen.AllScreens)
             {
-                sCounter+=1;
+                sCounter += 1;
                 txtScreens.Text += "(" + sCounter + ")" + x.DeviceName + Environment.NewLine;
-                
+
                 if (x.Primary == true)
                 { txtScreens.Text += "\t" + " ISPRIMARY " + Environment.NewLine; }
-                
+
                 txtScreens.Text += "\t" + x.WorkingArea.ToString() + Environment.NewLine;
                 txtScreens.Text += "\t" + x.Bounds.ToString() + Environment.NewLine;
 
@@ -77,52 +87,7 @@ namespace TestPowerpointApp
             }
         }
 
-        private void btnCheckIsRunning_Click(object sender, EventArgs e)
-        {
-
-
-            pptApplication = new PPt.Application();
-            try
-            {
-                pptApplication = null;
-                // Get Running PowerPoint Application object 
-                pptApplication = Marshal.GetActiveObject("PowerPoint.Application") as PPt.Application;
-
-                // Get PowerPoint application successfully, then set control button enable 
-                this.btnFirst.Enabled = true;
-                this.btnNext.Enabled = true;
-                this.btnPrevious.Enabled = true;
-                this.btnLast.Enabled = true;
-            if (pptApplication != null)
-            {
-
-                // Get Presentation Object 
-                presentation = pptApplication.ActivePresentation;
-                // Get Slide collection object 
-                slides = presentation.Slides;
-                // Get Slide count 
-                slidescount = slides.Count;
-                // Get current selected slide  
-                try
-                {
-                    // Get selected slide object in normal view 
-                    slide = slides[pptApplication.ActiveWindow.Selection.SlideRange.SlideNumber];
-                }
-                catch
-                {
-                    // Get selected slide object in reading view 
-                    slide = pptApplication.SlideShowWindows[1].View.Slide;
-                } 
-            } 
-                 
-             }
-            catch
-            {
-                MessageBox.Show("Please Run PowerPoint Firstly", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-            } 
-
-        }
-
+    
         private void btnFirst_Click(object sender, EventArgs e)
         {
             try
@@ -136,7 +101,7 @@ namespace TestPowerpointApp
                 // Transform to first page in reading view 
                 pptApplication.SlideShowWindows[1].View.First();
                 slide = pptApplication.SlideShowWindows[1].View.Slide;
-            } 
+            }
         }
 
         private void btnLast_Click(object sender, EventArgs e)
@@ -150,7 +115,7 @@ namespace TestPowerpointApp
             {
                 pptApplication.SlideShowWindows[1].View.Last();
                 slide = pptApplication.SlideShowWindows[1].View.Slide;
-            } 
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -172,7 +137,7 @@ namespace TestPowerpointApp
                     pptApplication.SlideShowWindows[1].View.Next();
                     slide = pptApplication.SlideShowWindows[1].View.Slide;
                 }
-            } 
+            }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
@@ -194,23 +159,23 @@ namespace TestPowerpointApp
             else
             {
                 MessageBox.Show("It is already Fist Page");
-            } 
+            }
         }
 
         private void btnOpenPptDoc_Click(object sender, EventArgs e)
         {
-       
+
 
 
             try
             {
-               // pptApplication = null;
+                // pptApplication = null;
                 // Get Running PowerPoint Application object 
 
                 Type powerpointType = Type.GetTypeFromProgID("PowerPoint.Application");
                 object instance1 = Activator.CreateInstance(powerpointType);
                 pptApplication = (PPt._Application)instance1;
-                
+
                 // Get PowerPoint application successfully, then set control button enable 
                 this.btnFirst.Enabled = true;
                 this.btnNext.Enabled = true;
@@ -220,9 +185,9 @@ namespace TestPowerpointApp
                 {
 
                     // Get Presentation Object 
-                    presentation = pptApplication.Presentations.Open("C:\\CROSSWAY\\12step_leaf_tree.ppt", MsoTriState.msoTrue,MsoTriState.msoFalse, MsoTriState.msoFalse);
+                    presentation = pptApplication.Presentations.Open("C:\\CROSSWAY\\12step_leaf_tree.ppt", MsoTriState.msoTrue, MsoTriState.msoFalse, MsoTriState.msoFalse);
                     try { pptApplication.Visible = MsoTriState.msoFalse; }
-                    catch (Exception exx) { }
+                    catch { }
                     SlideImages = GetSlideImages();
                     SlideImages.ImageSize = new Size(128, 128);
                     lstSlides.View = View.LargeIcon;
@@ -250,24 +215,24 @@ namespace TestPowerpointApp
                         sst1.StartingSlide = 1;
                         sst1.EndingSlide = slides.Count;
                         //panel1.Dock = DockStyle.Bottom;
-                        pptApplication.Height=panel1.Height;
+                        pptApplication.Height = panel1.Height;
                         sst1.ShowType = PPt.PpSlideShowType.ppShowTypeWindow;
                         sst1.Application.Width = panel1.Height;
                         sst1.Application.Height = panel1.Width;
 
                         try { pptApplication.Visible = MsoTriState.msoFalse; }
-                        catch (Exception exx) { }
+                        catch { }
                         sst1.ShowScrollbar = MsoTriState.msoFalse;
 
 
 
                         PPt.SlideShowWindow sw = sst1.Run();
                         try { pptApplication.Visible = MsoTriState.msoFalse; }
-                        catch (Exception exx) { }
+                        catch { }
                         IntPtr pptptr = (IntPtr)sw.HWND;
                         SetParent(pptptr, panel1.Handle);
-                                        try {pptApplication.Visible = MsoTriState.msoFalse;} 
-                catch (Exception exx){}
+                        try { pptApplication.Visible = MsoTriState.msoFalse; }
+                        catch { }
 
                     }
                     catch
@@ -279,7 +244,7 @@ namespace TestPowerpointApp
                 }
 
             }
-            catch ( Exception eMAin)
+            catch (Exception eMAin)
             {
                 MessageBox.Show(eMAin.Message);
             }
@@ -327,5 +292,70 @@ namespace TestPowerpointApp
         {
 
         }
+
+
+
+        MediaManagers.PowerPointApplication PPTMediaApplication;
+        MediaManagers.clsMediaListItem ActiveMediaItem;
+        System.Windows.Forms.ImageList PreviewStripImageList = new System.Windows.Forms.ImageList();
+        private void EnablePPTButtons()
+        {
+            this.btnFirst.Enabled = true;
+            this.btnNext.Enabled = true;
+            this.btnPrevious.Enabled = true;
+            this.btnLast.Enabled = true;
+
+        }
+
+
+
+        private void btnPPTDll_Click(object sender, EventArgs e)
+        {
+            MediaGuiComponents.DialogFormCalls dfc = new MediaGuiComponents.DialogFormCalls();
+            string pptFileName= dfc.GetPowerpointFile(this);
+            if (pptFileName == "") { return; }
+
+            PPTMediaApplication = new MediaManagers.PowerPointApplication();
+            PPTMediaApplication.AddPresentationFromFile(pptFileName);
+            EnablePPTButtons();
+
+          
+        }
+
+        private void btnNextPPTdll_Click(object sender, EventArgs e)
+        {
+            ActiveMediaItem = PPTMediaApplication.GetNextMediaListItem();
+            switch (ActiveMediaItem.mediaType)
+            {   case MediaTypeEnum.PowerPointFile:
+                    int picCount = 0;
+
+                    lstSlides.View = View.LargeIcon;
+                    PreviewStripImageList.ImageSize = new Size(128, 128);
+                    foreach (MediaManagers.clsSlidePictureItem x in ActiveMediaItem.SlideImages)
+                    {
+                        PreviewStripImageList.Images.Add(x.SlideImage);
+                        ListViewItem item = new ListViewItem();
+                        item.ImageIndex = picCount;
+                        this.lstSlides.Items.Add(item);
+                        picCount += 1;
+
+
+                        
+                    }
+                    lstSlides.LargeImageList = PreviewStripImageList;
+
+                    return;
+                case MediaTypeEnum.PowerPointDynamic:
+                    return;
+                case MediaTypeEnum.Movie:
+                    return;
+
+            }
+
+            
+        }
+
+
     }
+
 }
