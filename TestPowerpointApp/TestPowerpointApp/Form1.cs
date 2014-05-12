@@ -210,9 +210,7 @@ namespace TestPowerpointApp
                 Type powerpointType = Type.GetTypeFromProgID("PowerPoint.Application");
                 object instance1 = Activator.CreateInstance(powerpointType);
                 pptApplication = (PPt._Application)instance1;
-
-               // pptApplication = Marshal.GetActiveObject("PowerPoint.Application") as PPt.Application;
-
+                
                 // Get PowerPoint application successfully, then set control button enable 
                 this.btnFirst.Enabled = true;
                 this.btnNext.Enabled = true;
@@ -260,6 +258,9 @@ namespace TestPowerpointApp
                         try { pptApplication.Visible = MsoTriState.msoFalse; }
                         catch (Exception exx) { }
                         sst1.ShowScrollbar = MsoTriState.msoFalse;
+
+
+
                         PPt.SlideShowWindow sw = sst1.Run();
                         try { pptApplication.Visible = MsoTriState.msoFalse; }
                         catch (Exception exx) { }
@@ -281,6 +282,10 @@ namespace TestPowerpointApp
             catch ( Exception eMAin)
             {
                 MessageBox.Show(eMAin.Message);
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(pptApplication);
             }
 
             this.BringToFront();
