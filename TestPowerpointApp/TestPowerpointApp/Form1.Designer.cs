@@ -141,7 +141,7 @@
             // 
             // btnNextPPTdll
             // 
-            this.btnNextPPTdll.Location = new System.Drawing.Point(361, 41);
+            this.btnNextPPTdll.Location = new System.Drawing.Point(478, 41);
             this.btnNextPPTdll.Name = "btnNextPPTdll";
             this.btnNextPPTdll.Size = new System.Drawing.Size(103, 23);
             this.btnNextPPTdll.TabIndex = 11;
@@ -151,12 +151,13 @@
             // 
             // btnPrevPPTdll
             // 
-            this.btnPrevPPTdll.Location = new System.Drawing.Point(470, 41);
+            this.btnPrevPPTdll.Location = new System.Drawing.Point(361, 41);
             this.btnPrevPPTdll.Name = "btnPrevPPTdll";
             this.btnPrevPPTdll.Size = new System.Drawing.Size(111, 23);
             this.btnPrevPPTdll.TabIndex = 12;
-            this.btnPrevPPTdll.Text = "Select Next PPT";
+            this.btnPrevPPTdll.Text = "Select Prev PPT";
             this.btnPrevPPTdll.UseVisualStyleBackColor = true;
+            this.btnPrevPPTdll.Click += new System.EventHandler(this.btnPrevPPTdll_Click);
             // 
             // frmTestPowerPoint
             // 

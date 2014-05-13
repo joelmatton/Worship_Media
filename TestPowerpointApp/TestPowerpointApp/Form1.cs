@@ -314,8 +314,10 @@ namespace TestPowerpointApp
             MediaGuiComponents.DialogFormCalls dfc = new MediaGuiComponents.DialogFormCalls();
             string pptFileName= dfc.GetPowerpointFile(this);
             if (pptFileName == "") { return; }
-
-            PPTMediaApplication = new MediaManagers.PowerPointApplication();
+            if (PPTMediaApplication == null)
+            {
+                PPTMediaApplication = new MediaManagers.PowerPointApplication();
+            } 
             PPTMediaApplication.AddPresentationFromFile(pptFileName);
             EnablePPTButtons();
 
@@ -325,22 +327,31 @@ namespace TestPowerpointApp
         private void btnNextPPTdll_Click(object sender, EventArgs e)
         {
             ActiveMediaItem = PPTMediaApplication.GetNextMediaListItem();
+            DisplayFilmstripPreview(ActiveMediaItem);
+            ShowSlides();
+            
+        }
+
+        public void DisplayFilmstripPreview(clsMediaListItem ActiveMediaItem  )
+        {
+            PreviewStripImageList.Images.Clear();
+            this.lstSlides.Items.Clear();
             switch (ActiveMediaItem.mediaType)
-            {   case MediaTypeEnum.PowerPointFile:
-                    int picCount = 0;
+            {
+                case MediaTypeEnum.PowerPointFile:
 
                     lstSlides.View = View.LargeIcon;
-                    PreviewStripImageList.ImageSize = new Size(128, 128);
+                    lstSlides.MultiSelect = false;
+                    PreviewStripImageList.ImageSize = new Size(256, 256);
                     foreach (MediaManagers.clsSlidePictureItem x in ActiveMediaItem.SlideImages)
                     {
                         PreviewStripImageList.Images.Add(x.SlideImage);
                         ListViewItem item = new ListViewItem();
-                        item.ImageIndex = picCount;
+                        item.ImageIndex = x.ID; //slide id
                         this.lstSlides.Items.Add(item);
-                        picCount += 1;
 
 
-                        
+
                     }
                     lstSlides.LargeImageList = PreviewStripImageList;
 
@@ -352,8 +363,69 @@ namespace TestPowerpointApp
 
             }
 
+        }
+
+        private void btnPrevPPTdll_Click(object sender, EventArgs e)
+        {
+            ActiveMediaItem = PPTMediaApplication.GetPrevMediaListItem();
+            DisplayFilmstripPreview(ActiveMediaItem);
+            ShowSlides();
             
         }
+
+
+        public void ShowSlides()
+        {
+
+
+            // Get Slide collection object 
+            slides = ActiveMediaItem.PPTPresentation.Slides;
+            
+            // Get Slide count 
+            slidescount = slides.Count;
+            
+            // Get current selected slide  
+            try
+            {
+                // Get selected slide object in normal view                  
+                //if (lstSlides.SelectedItems.Count > 0)
+                //{
+                //    slide = presentation.Slides.FindBySlideID(lstSlides.SelectedItems[0].ImageIndex);
+                //}
+                //else
+                //{
+                //    slide = presentation.Slides.FindBySlideID(lstSlides.SelectedItems[0].ImageIndex);
+                //}
+                IntPtr screenClassWnd = (IntPtr)0;
+                IntPtr x = (IntPtr)0;
+                panel1.Controls.Add(PPTMediaApplication.PPTApplication as Control);
+
+                ActiveMediaItem.PPTPresentation.SlideShowSettings.StartingSlide = 1;
+                ActiveMediaItem.PPTPresentation.SlideShowSettings.EndingSlide = slides.Count;
+                //panel1.Dock = DockStyle.Bottom;
+                PPTMediaApplication.PPTApplication.Height = panel1.Height;
+                ActiveMediaItem.PPTPresentation.SlideShowSettings.ShowType = PPt.PpSlideShowType.ppShowTypeWindow;
+                ActiveMediaItem.PPTPresentation.SlideShowSettings.Application.Width = panel1.Height;
+                ActiveMediaItem.PPTPresentation.SlideShowSettings.Application.Height = panel1.Width;
+
+                try { PPTMediaApplication.PPTApplication.Visible = MsoTriState.msoFalse; }
+                catch { }
+                ActiveMediaItem.PPTPresentation.SlideShowSettings.ShowScrollbar = MsoTriState.msoFalse;
+                PPt.SlideShowWindow sw = ActiveMediaItem.PPTPresentation.SlideShowSettings.Run();
+            
+                IntPtr pptptr = (IntPtr)sw.HWND;
+                SetParent(pptptr, panel1.Handle);
+
+            }
+            catch
+            {
+            //    // Get selected slide object in reading view 
+            //    slide = pptApplication.SlideShowWindows[1].View.Slide;
+
+            }
+        }
+
+
 
 
     }
