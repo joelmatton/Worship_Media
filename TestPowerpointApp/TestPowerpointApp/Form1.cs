@@ -398,6 +398,7 @@ namespace TestPowerpointApp
                 //}
                 IntPtr screenClassWnd = (IntPtr)0;
                 IntPtr x = (IntPtr)0;
+
                 panel1.Controls.Add(PPTMediaApplication.PPTApplication as Control);
 
                 ActiveMediaItem.PPTPresentation.SlideShowSettings.StartingSlide = 1;
