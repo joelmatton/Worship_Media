@@ -187,20 +187,20 @@ namespace MediaManagers
 
     public class clsSlidePictureItem
     {
-        public string filename;
+        public string Filename;
+        public string FilenameMini;
         public int ID;  //slide id
         public Image SlideImage;
+        public Image SlideImageMini;
 
-        public clsSlidePictureItem(string filename, int slideID)
+
+        public clsSlidePictureItem(string filename, int slideID, Image slideImage, Image slideImageMini, string filenameMini)
         {
             this.ID = slideID;
-            this.filename = filename;
-        }
-        public clsSlidePictureItem(string filename, int slideID, Image slideImage)
-        {
-            this.ID = slideID;
-            this.filename = filename;
+            this.Filename = filename;
             this.SlideImage = slideImage;
+            this.SlideImageMini = slideImageMini;
+            this.FilenameMini = filenameMini;
         }
 
     }
@@ -224,8 +224,14 @@ namespace MediaManagers
                         string.Format("Slide_" + PictureImportIterator + "{0:00}.jpg", slide.SlideNumber));
 
                      slide.Export(fileName, "JPG", 1024, 768);
-                     Image slImage= Image.FromFile(fileName);
-                     PictureList.Add(new clsSlidePictureItem(fileName, slide.SlideID, slImage));
+                     var fileNamemini = System.IO.Path.Combine(
+                         System.IO.Path.GetTempPath(),
+                         string.Format("Slidemini_" + PictureImportIterator + "{0:00}.jpg", slide.SlideNumber));
+
+                     slide.Export(fileNamemini, "JPG", 256, 192);
+                     Image slImage = Image.FromFile(fileName);
+                     Image slImagemini = Image.FromFile(fileNamemini);
+                     PictureList.Add(new clsSlidePictureItem(fileName, slide.SlideID, slImage, slImagemini, fileNamemini));
                 }
 
                 return PictureList;

@@ -10,3 +10,5 @@ C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPow
 C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\obj\Debug\TestPowerpointApp.csprojResolveAssemblyReference.cache
 C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\bin\Debug\pptManager.dll
 C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\bin\Debug\pptManager.pdb
+C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\bin\Debug\FilmStrip.dll
+C:\Git_Source\WorshipMedia\TestPowerpointApp\TestPowerpointApp\bin\Debug\FilmStrip.pdb

@@ -1,0 +1,5 @@
+C:\Git_Source\WorshipMedia\TestPowerpointApp\pptManager\bin\Debug\pptManager.dll
+C:\Git_Source\WorshipMedia\TestPowerpointApp\pptManager\bin\Debug\pptManager.pdb
+C:\Git_Source\WorshipMedia\TestPowerpointApp\pptManager\obj\Debug\pptManager.dll
+C:\Git_Source\WorshipMedia\TestPowerpointApp\pptManager\obj\Debug\pptManager.pdb
+C:\Git_Source\WorshipMedia\TestPowerpointApp\pptManager\obj\Debug\pptManager.csproj.ResolveComReference.cache

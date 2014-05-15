@@ -97,6 +97,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MediaManagerGUIControls\FilmStrip\ImageStrip.csproj">
+      <Project>{e002d803-5242-436e-827c-3ffd2f9ad4ac}</Project>
+      <Name>ImageStrip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\pptManager\pptManager.csproj">
       <Project>{62631ae4-f286-464a-a9a3-5a35399c9688}</Project>
       <Name>pptManager</Name>

@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmStrip", "FilmStrip\FilmStrip.csproj", "{E002D803-5242-436E-827C-3FFD2F9AD4AC}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{E002D803-5242-436E-827C-3FFD2F9AD4AC}.Debug.ActiveCfg = Debug|.NET
+		{E002D803-5242-436E-827C-3FFD2F9AD4AC}.Debug.Build.0 = Debug|.NET
+		{E002D803-5242-436E-827C-3FFD2F9AD4AC}.Release.ActiveCfg = Release|.NET
+		{E002D803-5242-436E-827C-3FFD2F9AD4AC}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

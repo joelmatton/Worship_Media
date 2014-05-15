@@ -1,0 +1,7 @@
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\bin\Debug\FilmStrip.dll
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\bin\Debug\FilmStrip.pdb
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\obj\Debug\FilmStrip.ImageStrip.resources
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\obj\Debug\ImageStrip.csproj.GenerateResource.Cache
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\obj\Debug\FilmStrip.dll
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\obj\Debug\FilmStrip.pdb
+C:\Git_Source\WorshipMedia\MediaManagerGUIControls\FilmStrip\obj\Debug\ImageStrip.csprojResolveAssemblyReference.cache

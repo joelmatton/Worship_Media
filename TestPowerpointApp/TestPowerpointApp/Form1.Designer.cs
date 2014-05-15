@@ -37,10 +37,10 @@
             this.txtScreens = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClosePPT = new System.Windows.Forms.Button();
-            this.lstSlides = new System.Windows.Forms.ListView();
             this.btnPPTDll = new System.Windows.Forms.Button();
             this.btnNextPPTdll = new System.Windows.Forms.Button();
             this.btnPrevPPTdll = new System.Windows.Forms.Button();
+            this.MediaStrip = new FilmStrip.ImageStrip();
             this.SuspendLayout();
             // 
             // btnFirst
@@ -121,14 +121,6 @@
             this.btnClosePPT.UseVisualStyleBackColor = true;
             this.btnClosePPT.Click += new System.EventHandler(this.btnClosePPT_Click);
             // 
-            // lstSlides
-            // 
-            this.lstSlides.Location = new System.Drawing.Point(12, 438);
-            this.lstSlides.Name = "lstSlides";
-            this.lstSlides.Size = new System.Drawing.Size(330, 330);
-            this.lstSlides.TabIndex = 9;
-            this.lstSlides.UseCompatibleStateImageBehavior = false;
-            // 
             // btnPPTDll
             // 
             this.btnPPTDll.Location = new System.Drawing.Point(361, 12);
@@ -159,15 +151,23 @@
             this.btnPrevPPTdll.UseVisualStyleBackColor = true;
             this.btnPrevPPTdll.Click += new System.EventHandler(this.btnPrevPPTdll_Click);
             // 
+            // MediaStrip
+            // 
+            this.MediaStrip.Location = new System.Drawing.Point(12, 439);
+            this.MediaStrip.Name = "MediaStrip";
+            this.MediaStrip.Size = new System.Drawing.Size(390, 136);
+            this.MediaStrip.TabIndex = 13;
+            this.MediaStrip.OnImageClicked += new System.EventHandler(this.MediaStrip_OnImageClicked);
+            // 
             // frmTestPowerPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1478, 825);
+            this.Controls.Add(this.MediaStrip);
             this.Controls.Add(this.btnPrevPPTdll);
             this.Controls.Add(this.btnNextPPTdll);
             this.Controls.Add(this.btnPPTDll);
-            this.Controls.Add(this.lstSlides);
             this.Controls.Add(this.btnClosePPT);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtScreens);
@@ -195,10 +195,10 @@
         private System.Windows.Forms.TextBox txtScreens;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnClosePPT;
-        private System.Windows.Forms.ListView lstSlides;
         private System.Windows.Forms.Button btnPPTDll;
         private System.Windows.Forms.Button btnNextPPTdll;
         private System.Windows.Forms.Button btnPrevPPTdll;
+        private FilmStrip.ImageStrip MediaStrip;
     }
 }
 
